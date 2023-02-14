@@ -2,7 +2,7 @@ name: Fetch and prepare data for the day
 
 on:
   schedule:
-    - cron: '23 1 * * *'  # At 01:00 on Mondays.
+    - cron: '24 1 * * *'  # At 01:00 on Mondays.
 
 permissions:
   contents: write
