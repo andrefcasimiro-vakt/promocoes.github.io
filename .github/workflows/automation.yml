@@ -1,0 +1,27 @@
+name: Fetch and prepare data for the day
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "37 00 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
+
+jobs:
+  fetch-and-prepare-data-for-the-day:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🍽️ Checkout the repo
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+
+        uses: actions/checkout@v3
+        name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: npm ci
+        run: npm run downloadLidl
+        run: npm run processLidl
+
