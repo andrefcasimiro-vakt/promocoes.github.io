@@ -4,7 +4,7 @@ import { Product } from "../data/models";
 export default function useData() {
     const [data, setData] = useState<Product[]>([])
 
-    const fetchData = async () => {
+    const fetchData = async () => { 
 
         const lidlData = await fetch(`data/lidl/lidl_data.json`, {
             headers : { 
