@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: "41 00 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
+    - cron: "50 00 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
 
 jobs:
   fetch-and-prepare-data-for-the-day:
@@ -24,4 +24,5 @@ jobs:
       - run: npm ci
       - run: npm run downloadLidl
       - run: npm run processLidl
+      - run: npm run deploy
 
