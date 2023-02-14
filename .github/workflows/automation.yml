@@ -25,6 +25,6 @@ jobs:
       #- run: npm run downloadLidl
       #- run: npm run processLidl
       - run: git config --global user.email "andre.fernandes@VAKT.io"
-      - run: git config --global user.name "andre.fernandes@VAKT.io"
+      - run: git config --global user.name "andrefcasimiro-vakt"
       - run: npm run deploy
 
