@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "CI=false npm run build",
     "deploy": "gh-pages -d build",
     "downloadLidl": "node ./scripts/lidl.download.js",
     "processLidl": "node ./scripts/lidl.process.js"
