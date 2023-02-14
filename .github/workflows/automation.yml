@@ -2,7 +2,7 @@ name: Fetch and prepare data for the day
 
 on:
   schedule:
-    - cron: "18 01 14 2 *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
+    - cron: '23 1 * * 0'  # At 01:00 on Mondays.
 
 permissions:
   contents: write
