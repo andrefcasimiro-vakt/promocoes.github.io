@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: '*/1 * * * *'  # At 01:00 on Mondays.
 
-permissions:
-  contents: write
-
 jobs:
   fetch-and-prepare-data-for-the-day:
     runs-on: ubuntu-latest
