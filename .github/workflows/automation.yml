@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: "03 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
+    - cron: "10 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
 
 jobs:
   fetch-and-prepare-data-for-the-day:
@@ -27,5 +27,9 @@ jobs:
       - run: git remote -v
       - run: git config user.email "andre.fernandes@VAKT.io"
       - run: git config user.name "andrefcasimiro-vakt"
-      - run: npm run deploy
+      - run: npm run predeploy
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
 
