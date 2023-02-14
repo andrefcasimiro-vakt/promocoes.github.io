@@ -21,10 +21,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
+      #- run: npm ci
       #- run: npm run downloadLidl
       #- run: npm run processLidl
-      - run: git remote add origin git@github.com:andrefcasimiro-vakt/promocoes.github.io.git
+      - run: git remote -v
+      - run: git remote add origin andrefcasimiro-vakt/promocoes.github.io.git
       - run: git config --global user.email "andre.fernandes@VAKT.io"
       - run: git config --global user.name "andrefcasimiro-vakt"
       - run: npm run deploy
