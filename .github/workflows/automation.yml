@@ -22,7 +22,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run downloadLidl
-      - run: npm run processLidl
+      #- run: npm run downloadLidl
+      #- run: npm run processLidl
+      - run: git config --global user.email "andre.fernandes@VAKT.io"
+      - run: git config --global user.name "andre.fernandes@VAKT.io"
       - run: npm run deploy
 
