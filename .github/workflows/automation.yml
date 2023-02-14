@@ -1,9 +1,8 @@
 name: Fetch and prepare data for the day
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "15 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
+    - cron: "16 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
 
 permissions:
   contents: write
