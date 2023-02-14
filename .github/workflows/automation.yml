@@ -7,6 +7,9 @@ on:
   schedule:
     - cron: "10 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
 
+permissions:
+  contents: write
+
 jobs:
   fetch-and-prepare-data-for-the-day:
     runs-on: ubuntu-latest
