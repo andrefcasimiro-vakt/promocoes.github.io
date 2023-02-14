@@ -1,11 +1,9 @@
 name: Fetch and prepare data for the day
 
 on:
-  push:
-    branches:
-      - master
-  schedule:
-    - cron: "10 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
+workflow_dispatch:
+schedule:
+  - cron: "15 01 * * *" # Runs at 03:00 AM (UTC) every day (Check https://crontab.guru/)
 
 permissions:
   contents: write
@@ -25,8 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      #- run: npm run downloadLidl
-      #- run: npm run processLidl
+      - run: npm run downloadLidl
+      - run: npm run processLidl
       - run: git remote -v
       - run: git config user.email "andre.fernandes@VAKT.io"
       - run: git config user.name "andrefcasimiro-vakt"
