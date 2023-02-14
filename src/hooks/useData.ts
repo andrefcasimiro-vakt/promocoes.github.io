@@ -24,7 +24,7 @@ export default function useData() {
     }
 
     useEffect(() => {
-        fetchData()
+        fetchData() 
     }, [])
     
     const queryData = async (input: string): Promise<Product[]> => {
