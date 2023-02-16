@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Product } from "../data/models";
+import { Merchant, Product } from "../data/models";
 
 export default function useData() {
-    const [data, setData] = useState<Product[]>([])
+    const [lidlData, setLidlData] = useState<Product[] | undefined>(undefined)
+    const [pingoDoceData, setPingoDoceData] = useState<Product[] | undefined>(undefined)
 
-    const fetchData = async () => { 
 
+    const fetchLidlData = async () => { 
         const lidlData = await fetch(`data/lidl/lidl_data.json`, {
             headers : { 
                 'Content-Type': 'application/json',
@@ -13,26 +14,68 @@ export default function useData() {
             }
         }).then(dataSet => dataSet.json())
 
-        setData(state => {
-            state = [...state, ...lidlData]
+        setLidlData(state => {
+            state = lidlData as Product[]
 
-            return state.map(x => ({
+            return lidlData.map((x: Product) => ({
                 ...x,
                 name: x.name.normalize('NFC')
             }))
         })
+
+        return lidlData
+    }
+
+    const fetchPingoDoceData = async () => { 
+        const pingoDoceData = await fetch(`data/pingoDoce/pingodoce_data.json`, {
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(dataSet => dataSet.json())
+
+        setPingoDoceData(state => {
+            state = pingoDoceData as Product[]
+
+            return pingoDoceData.map((x: Product) => ({
+                ...x,
+                name: x.name.normalize('NFC')
+            }))
+        })
+
+        return pingoDoceData
     }
 
     useEffect(() => {
-        fetchData() 
+        queryData('', ['lidl'])
     }, [])
     
-    const queryData = async (input: string): Promise<Product[]> => {
+    const queryData = async (input: string, merchants: Merchant[]): Promise<Product[]> => {
+        const dataToQuery = []
+        if (merchants.includes('lidl')) {
+            if (lidlData) {
+                dataToQuery.push(...lidlData || [])
+            } else {
+                const lidlFetchedData = await fetchLidlData()
+                dataToQuery.push(...lidlFetchedData || [])
+            }
+        }
+
+        if (merchants.includes('pingodoce')) {
+            if (pingoDoceData) {
+                dataToQuery.push(...pingoDoceData || [])
+            } else {
+                const pingoDoceFetchedData = await fetchPingoDoceData()
+                dataToQuery.push(...pingoDoceFetchedData || [])
+            }
+        }
+
+
         if (!input.length) {
-            return data
+            return dataToQuery
         }
         
-        return data.filter(item => {
+        return dataToQuery.filter(item => {
             var pattern = input.split(" ").map((x)=>{
                 return `(?=.*${x})`
             }).join("");

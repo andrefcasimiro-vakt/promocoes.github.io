@@ -19,6 +19,10 @@ export const SpaceLarge = styled(Space)`
     margin-top: ${props => props.theme.spacing.large};
 `
 
+export const HoizontalSpace = styled.div`
+    margin-right: ${props => props.theme.spacing.extraSmall};
+`
+
 export const RowContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -37,7 +41,6 @@ export const ColumnContainerExtraLarge = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: ${props => props.theme.spacing.medium};
 `
 
 export const WrapContainerExtraLarge = styled.div`

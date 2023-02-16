@@ -18,19 +18,23 @@ const extractLidlWebsite = async () => {
 
     let allProducts = []
     for (const promoLink of allPromoLinks) {
+        try {
 
-        console.log('Downloading data from ' + promoLink)
-        const page = await requestPromise(lidlBasepath + promoLink, { strictSSL: false})
-        const pageData = new xmlParser.XMLParser({ ignoreAttributes: false }).parse(page)
-        const parsedPageData = JSON.stringify(pageData).split(' ')
-
-        console.log('Preparing data from ' + promoLink)
-
-        const pagePromotions = getPagePromotions(parsedPageData, page)
-
-        console.log('Data prepared successfully')
-
-        allProducts = [...allProducts, ...pagePromotions]
+            console.log('Downloading data from ' + promoLink)
+            const page = await requestPromise(lidlBasepath + promoLink, { strictSSL: false})
+            const pageData = new xmlParser.XMLParser({ ignoreAttributes: false }).parse(page)
+            const parsedPageData = JSON.stringify(pageData).split(' ')
+    
+            console.log('Preparing data from ' + promoLink)
+    
+            const pagePromotions = getPagePromotions(parsedPageData, page)
+    
+            console.log('Data prepared successfully')
+    
+            allProducts = [...allProducts, ...pagePromotions]
+        } catch (e) {
+            console.log('Error: ', e)
+        }
     }
 
     fs.writeFileSync(outputDir + 'lidl_data_unprocessed.json', JSON.stringify(allProducts))

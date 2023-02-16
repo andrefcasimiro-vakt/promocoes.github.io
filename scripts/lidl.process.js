@@ -12,6 +12,7 @@ const getDataFromTodayOnly = () => {
         throw new Error('Could not find lidl_data_unprocessed in tmp/ folder')
     }
 
+
     const allData = JSON.parse(fs.readFileSync(lidlDataUnprocessedPath))
 
     const currentMoment = moment().utc()
@@ -28,7 +29,7 @@ const getDataFromTodayOnly = () => {
             const month = stringReversed[1] + stringReversed[0]
             const day = stringReversed[3] + stringReversed[2]
 
-            const fromMoment = moment().utc().set('D', day).set('M', month - 1)
+            const fromMoment = moment().utc().set('D', day).set('M', month - 1).hour(0).minute(0)
 
             if (currentMoment.isSameOrAfter(fromMoment)) {
                 itemsForToday.push(data)
@@ -44,14 +45,21 @@ const getDataFromTodayOnly = () => {
             const endDay = endDate[0]+endDate[1]
             const endMonth = endDate[3]+endDate[4]
 
-            const fromMoment = moment().utc().set('D', startDay).set('M', startMonth - 1)
-            const toMoment = moment().utc().set('D', endDay).set('M', endMonth - 1)
+            const fromMoment = moment().utc().set('D', startDay).set('M', startMonth - 1).hour(0).minute(0)
+
+            if (startDay == 16) {
+                console.log('fromMoment: ', fromMoment)
+            }
+
+            const toMoment = moment().utc().set('D', endDay).set('M', endMonth - 1).hour(0).minute(0)
 
             if (currentMoment.isSameOrAfter(fromMoment) && currentMoment.isSameOrBefore(toMoment)) {
                 itemsForToday.push(data)
             }
         }
     })
+
+
 
     return itemsForToday
 }
