@@ -3,7 +3,7 @@ name: Fetch and prepare data for the day
 on:  
   push:
     branches:
-      - main
+      - master
   schedule:
     - cron: '0 3 * * *'  # At 03:00 every day.
 
