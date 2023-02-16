@@ -1,5 +1,6 @@
 import { Product } from "../../data/models";
 import { Text } from "../../styles/font.styled";
+import ContinenteIcon from "../icons/continente";
 import LidlIcon from "../icons/lidl";
 import PingoDoceIcon from "../icons/pingodoce";
 import { ProductLinkContainer, ProductCard, ProductImage, MerchantCard, NameCard, PriceCard } from "./product-tile.styled";
@@ -12,6 +13,7 @@ interface Props {
 export default function ProductTile({ product, key }: Props) {
     const isLidl = product.merchant === 'lidl'
     const isPingoDoce = product.merchant === 'pingodoce'
+    const isContinente = product.merchant === 'continente'
 
     let link, MerchantIcon
 
@@ -21,11 +23,14 @@ export default function ProductTile({ product, key }: Props) {
     } else if (isPingoDoce) {
         link = product.href
         MerchantIcon = PingoDoceIcon
+    } else if (isContinente) {
+        link = product.href
+        MerchantIcon = ContinenteIcon
     }
 
     return (
         <ProductLinkContainer href={link} target="_blank" rel="noreferrer">
-            <ProductCard key={key}>
+            <ProductCard key={key} merchant={product.merchant}>
                 <MerchantCard>
                     {
                         MerchantIcon && <MerchantIcon />

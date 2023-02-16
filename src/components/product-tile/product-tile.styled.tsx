@@ -1,10 +1,36 @@
-import styled from "styled-components"
+import styled, { DefaultTheme, ThemeProps } from "styled-components"
+import { Merchant } from "../../data/models";
 
 export const ProductLinkContainer = styled.a`
     text-decoration: none;
 `
 
-export const ProductCard = styled.div<{ backgroundImage?: string; }>`
+
+export const NameCard = styled.div`
+    position: relative;
+    display: flex;
+    font-weight: bold;
+    color: #fff;
+    padding: ${props => props.theme.spacing.extraSmall};
+    transition: 0.2s ease all;
+`
+
+const getMerchantColor = (merchant: Merchant, theme: DefaultTheme) => {
+
+    if (merchant === 'lidl') {
+        return theme.colors.lidl
+    }
+    if (merchant === 'pingodoce') {
+        return theme.colors.pingodoce
+    }
+    if (merchant === 'continente') {
+        return theme.colors.continente
+    }
+
+    return theme.colors.primary
+}
+
+export const ProductCard = styled.div<{ backgroundImage?: string; merchant: Merchant }>`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -14,7 +40,11 @@ export const ProductCard = styled.div<{ backgroundImage?: string; }>`
     background-position: center center;
     background-image: url('${props => props.backgroundImage}');
 
-    border: 1px solid ${props => props.theme.colors.primary};
+    border: 1px solid ${props => getMerchantColor(props.merchant, props.theme)};
+
+    ${NameCard} {
+        background: ${props => getMerchantColor(props.merchant, props.theme)};
+    }
 
     width: 200px;
     height: 200px;
@@ -26,17 +56,6 @@ export const ProductCard = styled.div<{ backgroundImage?: string; }>`
         transform: translate(0px, -2px);
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     }
-`
-
-export const NameCard = styled.div`
-    position: relative;
-    display: flex;
-    font-weight: bold;
-    color: #fff;
-    padding: ${props => props.theme.spacing.extraSmall};
-    transition: 0.2s ease all;
-
-    background: ${props => props.theme.colors.primary};
 `
 
 export const ProductImage = styled.div<{ backgroundImage?: string; }>`

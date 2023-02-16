@@ -14,6 +14,7 @@
     "cheerio": "^1.0.0-rc.12",
     "fast-xml-parser": "^4.1.2",
     "got-scraping": "^3.2.12",
+    "html-entities": "^2.3.3",
     "moment": "^2.29.4",
     "puppeteer": "^19.7.1",
     "react": "^18.2.0",
@@ -22,6 +23,7 @@
     "request-promise": "^4.2.6",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.5",
+    "utf8": "^3.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -32,7 +34,10 @@
     "predeploy": "CI=false npm run build",
     "deploy": "gh-pages -d build",
     "downloadLidl": "node ./scripts/lidl.download.js",
-    "processLidl": "node ./scripts/lidl.process.js"
+    "processLidl": "node ./scripts/lidl.process.js",
+    "downloadPingoDoce": "node ./scripts/pingoDoce.download.js",
+    "processPingoDoce": "node ./scripts/pingoDoce.process.js",
+    "downloadContinente": "node ./scripts/continente.download.js"
   },
   "eslintConfig": {
     "extends": [

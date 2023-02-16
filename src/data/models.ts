@@ -1,4 +1,4 @@
-export type Merchant = 'lidl' | 'pingodoce'
+export type Merchant = 'lidl' | 'pingodoce' | 'continente'
 
 export interface Product {
     name: string;

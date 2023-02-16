@@ -8,6 +8,9 @@ declare module 'styled-components' {
             secondary: string;
             secondaryDark: string;
             light: string;
+            lidl: string;
+            pingodoce: string;
+            continente: string;
          },
          fontSize: {
             default: string;

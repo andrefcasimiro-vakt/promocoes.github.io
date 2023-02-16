@@ -34,6 +34,7 @@ export default function App() {
         <Space />
         <H1>PROMOÇÕES</H1>
         <H4>A mostrar promoções de hoje ({today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()})</H4>
+        <Space />
 
       <ColumnContainerExtraLarge>
         <RowContainerLarge>
@@ -57,6 +58,15 @@ export default function App() {
             key="pingodoce"
             checked={merchants.includes('pingodoce')}
           />
+          <HoizontalSpace />
+          <MerchantFilter
+            merchantName="Continente"
+            merchantValue="continente"
+            setMerchants={setMerchants} 
+            key="continente"
+            checked={merchants.includes('continente')}
+          />
+          <HoizontalSpace />
         </RowContainerLarge>
       </ColumnContainerExtraLarge>
 

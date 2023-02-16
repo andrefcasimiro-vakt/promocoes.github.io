@@ -4,6 +4,7 @@ import { Merchant, Product } from "../data/models";
 export default function useData() {
     const [lidlData, setLidlData] = useState<Product[] | undefined>(undefined)
     const [pingoDoceData, setPingoDoceData] = useState<Product[] | undefined>(undefined)
+    const [continenteData, setContinenteData] = useState<Product[] | undefined>(undefined)
 
 
     const fetchLidlData = async () => { 
@@ -46,6 +47,26 @@ export default function useData() {
         return pingoDoceData
     }
 
+    const fetchContinenteData = async () => { 
+        const continenteData = await fetch(`data/continente/continente_data.json`, {
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(dataSet => dataSet.json())
+
+        setPingoDoceData(state => {
+            state = continenteData as Product[]
+
+            return continenteData.map((x: Product) => ({
+                ...x,
+                name: x.name.normalize('NFC')
+            }))
+        })
+
+        return continenteData
+    }
+
     useEffect(() => {
         queryData('', ['lidl'])
     }, [])
@@ -67,6 +88,15 @@ export default function useData() {
             } else {
                 const pingoDoceFetchedData = await fetchPingoDoceData()
                 dataToQuery.push(...pingoDoceFetchedData || [])
+            }
+        }
+
+        if (merchants.includes('continente')) {
+            if (continenteData) {
+                dataToQuery.push(...continenteData || [])
+            } else {
+                const continenteFetchedData = await fetchContinenteData()
+                dataToQuery.push(...continenteFetchedData || [])
             }
         }
 

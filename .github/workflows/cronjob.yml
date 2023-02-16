@@ -24,6 +24,9 @@ jobs:
       - run: npm ci
       - run: npm run downloadLidl
       - run: npm run processLidl
+      - run: npm run downloadPingoDoce
+      - run: npm run processPingoDoce
+      - run: npm run downloadContinente
       - run: git remote -v
       - run: git config user.email "andre.fernandes@VAKT.io"
       - run: git config user.name "andrefcasimiro-vakt"
