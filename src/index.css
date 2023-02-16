@@ -17,3 +17,8 @@ body {
 #root {
   height: 100%;
 }
+
+.infinite-scroll-component__outerdiv{
+  display: flex;
+  width: 100%;
+}

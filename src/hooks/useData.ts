@@ -55,7 +55,7 @@ export default function useData() {
             }
         }).then(dataSet => dataSet.json())
 
-        setPingoDoceData(state => {
+        setContinenteData(state => {
             state = continenteData as Product[]
 
             return continenteData.map((x: Product) => ({
@@ -68,10 +68,10 @@ export default function useData() {
     }
 
     useEffect(() => {
-        queryData('', ['lidl'])
+        queryData('', ['lidl'], 0)
     }, [])
     
-    const queryData = async (input: string, merchants: Merchant[]): Promise<Product[]> => {
+    const queryData = async (input: string, merchants: Merchant[], pageSize: number): Promise<Product[]> => {
         const dataToQuery = []
         if (merchants.includes('lidl')) {
             if (lidlData) {
@@ -102,7 +102,7 @@ export default function useData() {
 
 
         if (!input.length) {
-            return dataToQuery
+            return dataToQuery.slice(0, pageSize)
         }
         
         return dataToQuery.filter(item => {
@@ -112,7 +112,7 @@ export default function useData() {
 
             var regex = new RegExp(`${pattern}`, "gi")
             return regex.test(item.name)
-        })
+        }).slice(0, pageSize)
     }
 
     return {
