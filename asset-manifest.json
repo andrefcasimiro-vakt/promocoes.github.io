@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/promocoes.github.io/static/css/main.c7a720de.css",
-    "main.js": "/promocoes.github.io/static/js/main.985a57ed.js",
+    "main.js": "/promocoes.github.io/static/js/main.b970400b.js",
     "static/js/787.28cb0dcd.chunk.js": "/promocoes.github.io/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/promocoes.github.io/index.html",
     "main.c7a720de.css.map": "/promocoes.github.io/static/css/main.c7a720de.css.map",
-    "main.985a57ed.js.map": "/promocoes.github.io/static/js/main.985a57ed.js.map",
+    "main.b970400b.js.map": "/promocoes.github.io/static/js/main.b970400b.js.map",
     "787.28cb0dcd.chunk.js.map": "/promocoes.github.io/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c7a720de.css",
-    "static/js/main.985a57ed.js"
+    "static/js/main.b970400b.js"
   ]
 }
