@@ -13,7 +13,6 @@ import {
  Space,
  WrapContainerExtraLarge,
 } from '../styles/layout.styled';
-import { sortProductsByPrice } from '../utils/utils';
 
 export const loadingAtom = atom<boolean>(true);
 
@@ -62,7 +61,7 @@ export default function App() {
  flexWrap: 'wrap', display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
 }}
               >
-                {sortProductsByPrice(displayedItems).map((item, index) => (
+                {displayedItems.map((item, index) => (
                   <ProductTile product={item} key={index.toString()} />
               ))}
               </div>

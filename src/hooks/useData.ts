@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Merchant, Product } from '../data/models';
 import { DataFetcher } from '../data/services';
+import { sortProductsByPrice } from '../utils/utils';
 
 export default function useData() {
     const [lidlData, setLidlData] = useState<Product[] | undefined>(undefined);
@@ -57,11 +58,13 @@ export default function useData() {
             }
         }
 
+        const sortedData = sortProductsByPrice(dataToQuery);
+
         if (!input.length) {
-            return dataToQuery.slice(0, maxItems);
+            return sortedData.slice(0, maxItems);
         }
 
-        return dataToQuery.filter((item) => {
+        return sortedData.filter((item) => {
             const pattern = input.split(' ').map((x) => `(?=.*${x})`).join('');
 
             const regex = new RegExp(`${pattern}`, 'gi');
