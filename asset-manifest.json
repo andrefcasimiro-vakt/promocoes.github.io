@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/promocoes.github.io/static/css/main.9ccb2263.css",
-    "main.js": "/promocoes.github.io/static/js/main.283e4afb.js",
-    "static/js/787.28cb0dcd.chunk.js": "/promocoes.github.io/static/js/787.28cb0dcd.chunk.js",
+    "main.js": "/promocoes.github.io/static/js/main.66ddd44e.js",
+    "static/js/787.9c23b2b0.chunk.js": "/promocoes.github.io/static/js/787.9c23b2b0.chunk.js",
     "index.html": "/promocoes.github.io/index.html",
     "main.9ccb2263.css.map": "/promocoes.github.io/static/css/main.9ccb2263.css.map",
-    "main.283e4afb.js.map": "/promocoes.github.io/static/js/main.283e4afb.js.map",
-    "787.28cb0dcd.chunk.js.map": "/promocoes.github.io/static/js/787.28cb0dcd.chunk.js.map"
+    "main.66ddd44e.js.map": "/promocoes.github.io/static/js/main.66ddd44e.js.map",
+    "787.9c23b2b0.chunk.js.map": "/promocoes.github.io/static/js/787.9c23b2b0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9ccb2263.css",
-    "static/js/main.283e4afb.js"
+    "static/js/main.66ddd44e.js"
   ]
 }
