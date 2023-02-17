@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Merchant, Product } from '../data/models';
 import { DataFetcher } from '../data/services';
 
@@ -27,11 +27,7 @@ export default function useData() {
         return payload;
     };
 
-    useEffect(() => {
-        queryData('', ['lidl']);
-    }, []);
-
-    const queryData = async (input: string, merchants: Merchant[]): Promise<Product[]> => {
+    const queryData = async (input: string, merchants: Merchant[], maxItems: number): Promise<Product[]> => {
         const dataToQuery = [];
 
         if (merchants.includes('lidl')) {
@@ -62,7 +58,7 @@ export default function useData() {
         }
 
         if (!input.length) {
-            return dataToQuery;
+            return dataToQuery.slice(0, maxItems);
         }
 
         return dataToQuery.filter((item) => {
@@ -70,7 +66,7 @@ export default function useData() {
 
             const regex = new RegExp(`${pattern}`, 'gi');
             return regex.test(item.name);
-        });
+        }).slice(0, maxItems);
     };
 
     return {

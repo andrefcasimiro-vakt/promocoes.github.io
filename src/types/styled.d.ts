@@ -20,6 +20,11 @@ declare module 'styled-components' {
             small: string;
             medium: string;
             large: string;
+         },
+         zIndexes: {
+            priceBanner: number;
+            scrollButton: number;
+            navbar: number;
          }
     }
 }

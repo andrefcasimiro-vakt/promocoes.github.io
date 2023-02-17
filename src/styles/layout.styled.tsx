@@ -27,11 +27,10 @@ export const RowContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 `;
 
 export const RowContainerLarge = styled(RowContainer)`
-    width: 450px;
-
     @media only screen and (max-width: 600px) {
         width: 100%;
     }

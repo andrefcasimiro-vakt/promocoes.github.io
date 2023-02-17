@@ -1,39 +1,41 @@
-import {
- useEffect, useState,
-} from 'react';
-import MerchantFilter from '../components/merchant-filter/merchant-filter';
+import { atom, useAtom } from 'jotai';
+import { useEffect, useState } from 'react';
+import { merchantsAtom } from '../components/filters-menu/filters-menu';
+import Footer, { maxItemsAtom } from '../components/footer/footer';
 import ProductTile from '../components/product-tile/product-tile';
-import { Merchant, Product } from '../data/models';
+import ScrollTo from '../components/scroll-to/scroll-to';
+import Toolbar, { searchAtom } from '../components/toolbar/toolbar';
+import { Product } from '../data/models';
 import useData from '../hooks/useData';
-import { PrimaryButton } from '../styles/buttons.styled';
-import { H1, H2, H4 } from '../styles/font.styled';
-import { TextInput } from '../styles/inputs.styled';
+import { H2 } from '../styles/font.styled';
 import {
- RowContainerLarge,
  ContainerCentered,
  Space,
  WrapContainerExtraLarge,
- ColumnContainerExtraLarge,
- HorizontalSpace,
 } from '../styles/layout.styled';
 import { sortProductsByPrice } from '../utils/utils';
 
-const today = new Date();
+export const loadingAtom = atom<boolean>(true);
 
 export default function App() {
-  const [inputValue, setInputValue] = useState('');
   const [displayedItems, setDisplayedItems] = useState<Product[]>([]);
-  const [merchants, setMerchants] = useState<Merchant[]>(['lidl']);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useAtom(loadingAtom);
+  const [searchValue] = useAtom(searchAtom);
+  const [merchants] = useAtom(merchantsAtom);
+  const [maxItems] = useAtom(maxItemsAtom);
 
   const { queryData } = useData();
 
   const handleSearch = async () => {
-    const result = await queryData(inputValue, merchants);
+    const result = await queryData(searchValue, merchants, maxItems);
 
     setDisplayedItems(() => result);
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchValue, merchants, maxItems]);
 
   useEffect(() => {
     if (loading) {
@@ -43,73 +45,31 @@ export default function App() {
     }
   }, [loading]);
 
-  useEffect(() => {
-    handleSearch();
-  }, [inputValue, merchants]);
-
   return (
-    <ContainerCentered>
-      <Space />
-      <H1>PROMOÇÕES</H1>
-      <H4>
-        A mostrar promoções de hoje (
-        {`${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`}
-        )
-      </H4>
-      <Space />
-
-      <ColumnContainerExtraLarge>
-        <RowContainerLarge>
-          <TextInput
-            value={inputValue}
-            onChange={(ev) => {
-              setInputValue(ev.target.value);
-
-              setLoading(true);
-            }}
-            placeholder="Ex. Batata doce, Café Delta, Vinhos"
-          />
-          <PrimaryButton>Pesquisar</PrimaryButton>
-        </RowContainerLarge>
-        <Space />
-        <RowContainerLarge>
-          <MerchantFilter
-            merchantName="Lidl"
-            merchantValue="lidl"
-            setMerchants={setMerchants}
-            key="lidl"
-            checked={merchants.includes('lidl')}
-          />
-          <HorizontalSpace />
-          <MerchantFilter
-            merchantName="Pingo Doce"
-            merchantValue="pingodoce"
-            setMerchants={setMerchants}
-            key="pingodoce"
-            checked={merchants.includes('pingodoce')}
-          />
-          <HorizontalSpace />
-          <MerchantFilter
-            merchantName="Continente"
-            merchantValue="continente"
-            setMerchants={setMerchants}
-            key="continente"
-            checked={merchants.includes('continente')}
-          />
-          <HorizontalSpace />
-        </RowContainerLarge>
-      </ColumnContainerExtraLarge>
-
-      <WrapContainerExtraLarge>
-        {loading ? <H2>A pesquisar...</H2> : (
-          <div style={{
-          flexWrap: 'wrap', display: 'flex', flexDirection: 'row', justifyContent: 'center',
-          }}
-          >
-            {sortProductsByPrice(displayedItems).map((item, index) => (
-              <ProductTile product={item} key={index.toString()} />
+    <ContainerCentered style={{ padding: 0, paddingTop: 40 }}>
+      <Toolbar />
+      <ScrollTo />
+      <Space style={{ marginTop: 40 }} />
+      <WrapContainerExtraLarge style={{ padding: 0, width: '100%' }}>
+        {loading
+          ? <H2>A pesquisar...</H2>
+          : (
+            <div style={{
+ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%',
+}}
+            >
+              <div style={{
+ flexWrap: 'wrap', display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
+}}
+              >
+                {sortProductsByPrice(displayedItems).map((item, index) => (
+                  <ProductTile product={item} key={index.toString()} />
               ))}
-          </div>
+              </div>
+              <Space />
+              <Footer />
+
+            </div>
         )}
 
       </WrapContainerExtraLarge>

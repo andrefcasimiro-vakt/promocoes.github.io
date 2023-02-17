@@ -1,4 +1,4 @@
-import { DefaultTheme } from "styled-components";
+import { DefaultTheme } from 'styled-components';
 
 export const theme: DefaultTheme = {
     colors: {
@@ -19,5 +19,10 @@ export const theme: DefaultTheme = {
         small: '10px',
         medium: '50px',
         large: '100px',
-    }
-}
+    },
+    zIndexes: {
+        priceBanner: 2,
+        scrollButton: 5,
+        navbar: 100,
+    },
+};

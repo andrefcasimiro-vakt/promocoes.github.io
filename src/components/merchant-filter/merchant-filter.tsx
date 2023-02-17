@@ -1,5 +1,6 @@
 import { Merchant } from '../../data/models';
-import { TextPrimary } from '../../styles/font.styled';
+import { Text } from '../../styles/font.styled';
+import { RowContainer } from '../../styles/layout.styled';
 
 interface Props {
     merchantName: string;
@@ -12,7 +13,7 @@ export default function MerchantFilter({
  merchantName, merchantValue, setMerchants, checked,
 }: Props) {
     return (
-      <>
+      <RowContainer>
         <input
           type="checkbox"
           id={merchantValue}
@@ -38,7 +39,9 @@ export default function MerchantFilter({
                 }
           }}
         />
-        <label htmlFor={merchantValue}><TextPrimary>{merchantName}</TextPrimary></label>
-      </>
+        <label htmlFor={merchantValue}>
+          <Text style={{ fontSize: 14 }}>{merchantName}</Text>
+        </label>
+      </RowContainer>
     );
 }
