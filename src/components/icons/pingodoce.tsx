@@ -1,7 +1,7 @@
-import path from './pingodoce.png'
+import path from './pingodoce.png';
 
 export default function PingoDoceIcon() {
     return (
-        <img src={path} width="64px" />
-    )
+      <img alt="pingo doce icon" src={path} width="64px" />
+    );
 }

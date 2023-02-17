@@ -1,1 +1,3 @@
-export const sortByPrice = (items: any[]): any[] => items.sort((a,b) => a.price - b.price)
+import { Product } from '../data/models';
+
+export const sortProductsByPrice = (items: Product[]): Product[] => items.sort((a, b) => Number(a.price) - Number(b.price));

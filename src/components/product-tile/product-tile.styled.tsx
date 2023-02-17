@@ -1,34 +1,32 @@
-import styled, { DefaultTheme, ThemeProps } from "styled-components"
-import { Merchant } from "../../data/models";
+import styled, { DefaultTheme } from 'styled-components';
+import { Merchant } from '../../data/models';
 
 export const ProductLinkContainer = styled.a`
     text-decoration: none;
-`
-
+`;
 
 export const NameCard = styled.div`
     position: relative;
     display: flex;
     font-weight: bold;
     color: #fff;
-    padding: ${props => props.theme.spacing.extraSmall};
+    padding: ${(props) => props.theme.spacing.extraSmall};
     transition: 0.2s ease all;
-`
+`;
 
 const getMerchantColor = (merchant: Merchant, theme: DefaultTheme) => {
-
     if (merchant === 'lidl') {
-        return theme.colors.lidl
+        return theme.colors.lidl;
     }
     if (merchant === 'pingodoce') {
-        return theme.colors.pingodoce
+        return theme.colors.pingodoce;
     }
     if (merchant === 'continente') {
-        return theme.colors.continente
+        return theme.colors.continente;
     }
 
-    return theme.colors.primary
-}
+    return theme.colors.primary;
+};
 
 export const ProductCard = styled.div<{ backgroundImage?: string; merchant: Merchant }>`
     position: relative;
@@ -38,17 +36,17 @@ export const ProductCard = styled.div<{ backgroundImage?: string; merchant: Merc
     
     background-size: cover;
     background-position: center center;
-    background-image: url('${props => props.backgroundImage}');
+    background-image: url('${(props) => props.backgroundImage}');
 
-    border: 1px solid ${props => getMerchantColor(props.merchant, props.theme)};
+    border: 1px solid ${(props) => getMerchantColor(props.merchant, props.theme)};
 
     ${NameCard} {
-        background: ${props => getMerchantColor(props.merchant, props.theme)};
+        background: ${(props) => getMerchantColor(props.merchant, props.theme)};
     }
 
     width: 200px;
     height: 200px;
-    margin: ${props => props.theme.spacing.small};
+    margin: ${(props) => props.theme.spacing.small};
 
     transition: 0.2s ease all;
 
@@ -56,7 +54,7 @@ export const ProductCard = styled.div<{ backgroundImage?: string; merchant: Merc
         transform: translate(0px, -2px);
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     }
-`
+`;
 
 export const ProductImage = styled.div<{ backgroundImage?: string; }>`
     display: flex;
@@ -64,9 +62,8 @@ export const ProductImage = styled.div<{ backgroundImage?: string; }>`
     position: relative;
     background-size: cover;
     background-position: center center;
-    background-image: url('${props => props.backgroundImage}');
-`
-
+    background-image: url('${(props) => props.backgroundImage}');
+`;
 
 export const PriceCard = styled.div`
     position: absolute;
@@ -76,9 +73,9 @@ export const PriceCard = styled.div`
     background: red;
     font-weight: bold;
     color: #fff;
-    padding: ${props => props.theme.spacing.extraSmall};
+    padding: ${(props) => props.theme.spacing.extraSmall};
     z-index: 1;
-`
+`;
 
 export const MerchantCard = styled.div`
     position: absolute;
@@ -87,6 +84,6 @@ export const MerchantCard = styled.div`
     display: flex;
     font-weight: bold;
     color: #fff;
-    padding: ${props => props.theme.spacing.extraSmall};
+    padding: ${(props) => props.theme.spacing.extraSmall};
     z-index: 1;
-`
+`;

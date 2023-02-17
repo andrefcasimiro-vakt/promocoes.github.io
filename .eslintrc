@@ -1,0 +1,127 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react",
+		"@typescript-eslint",
+		"prettier",
+		"react-hooks",
+		"import"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:prettier/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"airbnb"
+	],
+	"rules": {
+		"eqeqeq": 0,
+		"react-hooks/rules-of-hooks": 2, // Checks rules of Hooks
+		"react-hooks/exhaustive-deps": 0, // Checks effect dependencies
+		"import/no-unresolved": 1,
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+		],
+		"prettier/prettier": 0,
+		"@typescript-eslint/explicit-function-return-type": 0,
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [
+					".js",
+					".jsx",
+					".ts",
+					".tsx"
+				]
+			}
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"no-unused-vars": 1,
+		"@typescript-eslint/no-unused-vars": 1,
+		"react/no-array-index-key": 0,
+		"no-restricted-globals": 1,
+		"import/prefer-default-export": 0,
+		"indent": 0,
+		"no-tabs": 0,
+		"max-len": 1,
+		"react/require-default-props": 0,
+		"no-nested-ternary": 1,
+		"react/jsx-indent": 1,
+		"react/jsx-props-no-spreading": 0,
+		"jsx-a11y/mouse-events-have-key-events": 1,
+		"import/no-cycle": 0,
+		"no-underscore-dangle": 0,
+		"no-unused-expressions": 0,
+		"no-use-before-define": 1,
+		"quotes": 1,
+		"semi": 1,
+		"react/no-unknown-property": 1,
+		"react/jsx-tag-spacing": 1,
+		"import/no-extraneous-dependencies": 1,
+		"comma-dangle": 1,
+		"react/no-unused-prop-types": 1,
+		"jsx-a11y/click-events-have-key-events": 1,
+		"jsx-a11y/no-noninteractive-element-interactions": 1,
+		"no-shadow": 1,
+		"prefer-const": 1,
+		"no-undef": 1,
+		"no-param-reassign": 1,
+		"no-multiple-empty-lines": 1,
+		"no-prototype-builtins": 1,
+		"jsx-a11y/no-static-element-interactions": 1,
+		"consistent-return": 1,
+		"react/button-has-type": 0,
+		"react/react-in-jsx-scope": 0,
+		"react/jsx-no-duplicate-props": 1,
+		"react/prop-types": 1,
+		"no-multi-spaces": 1,
+		"import/newline-after-import": 1,
+		"react/destructuring-assignment": 0,
+		"import/order": 1
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"paths": [
+					"src"
+				],
+				"moduleDirectory": [
+					"node_modules"
+				],
+				"extensions": [
+					".js",
+					".jsx",
+					".ts",
+					".tsx"
+				]
+			}
+		}
+	}
+}

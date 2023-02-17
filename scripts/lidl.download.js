@@ -1,103 +1,103 @@
-const requestPromise = require('request-promise')
-const xmlParser = require('fast-xml-parser')
-const fs = require('fs')
-const cherio = require('cheerio')
+/* eslint-disable no-await-in-loop */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-continue */
+/* eslint-disable no-restricted-syntax */
+const requestPromise = require('request-promise');
+const xmlParser = require('fast-xml-parser');
+const fs = require('fs');
+const cherio = require('cheerio');
 
-const outputDir = './scripts/tmp/'
+const outputDir = './scripts/tmp/';
 
 const extractLidlWebsite = async () => {
-    const lidlBasepath = 'https://www.lidl.pt'
-    var lidlPromotionsPath = lidlBasepath + '/promocoes'
+    const lidlBasepath = 'https://www.lidl.pt';
+    const lidlPromotionsPath = `${lidlBasepath}/promocoes`;
 
-    const lidlHomepageHtml = await requestPromise(lidlPromotionsPath, { strictSSL: false})
-    
-    const data = new xmlParser.XMLParser({ ignoreAttributes: false }).parse(lidlHomepageHtml)
-    const parsedData = JSON.stringify(data).split(' ').join('\n')
+    const lidlHomepageHtml = await requestPromise(lidlPromotionsPath, { strictSSL: false });
 
-    let allPromoLinks = getAllPromotionPageLinks(parsedData)
+    const data = new xmlParser.XMLParser({ ignoreAttributes: false }).parse(lidlHomepageHtml);
+    const parsedData = JSON.stringify(data).split(' ').join('\n');
 
-    let allProducts = []
+    const allPromoLinks = getAllPromotionPageLinks(parsedData);
+
+    let allProducts = [];
     for (const promoLink of allPromoLinks) {
         try {
+            console.log(`Downloading data from ${promoLink}`);
+            const page = await requestPromise(lidlBasepath + promoLink, { strictSSL: false });
+            const pageData = new xmlParser.XMLParser({ ignoreAttributes: false }).parse(page);
+            const parsedPageData = JSON.stringify(pageData).split(' ');
 
-            console.log('Downloading data from ' + promoLink)
-            const page = await requestPromise(lidlBasepath + promoLink, { strictSSL: false})
-            const pageData = new xmlParser.XMLParser({ ignoreAttributes: false }).parse(page)
-            const parsedPageData = JSON.stringify(pageData).split(' ')
-    
-            console.log('Preparing data from ' + promoLink)
-    
-            const pagePromotions = getPagePromotions(parsedPageData, page)
-    
-            console.log('Data prepared successfully')
-    
-            allProducts = [...allProducts, ...pagePromotions]
+            console.log(`Preparing data from ${promoLink}`);
+
+            const pagePromotions = getPagePromotions(parsedPageData, page);
+
+            console.log('Data prepared successfully');
+
+            allProducts = [...allProducts, ...pagePromotions];
         } catch (e) {
-            console.log('Error: ', e)
+            console.log('Error: ', e);
         }
     }
 
-    fs.writeFileSync(outputDir + 'lidl_data_unprocessed.json', JSON.stringify(allProducts))
-}
+    fs.writeFileSync(`${outputDir}lidl_data_unprocessed.json`, JSON.stringify(allProducts));
+};
 
 const getAllPromotionPageLinks = (html) => {
-    let splitHtml = html.split(`{`)
-    splitHtml = splitHtml.join('').split(`}`)
+    let splitHtml = html.split('{');
+    splitHtml = splitHtml.join('').split('}');
 
-    let matches = splitHtml.filter(html =>
-        html.includes(`HeroStage`)
-        && html.includes(`slider/accordionTheme/slide`)
-        && html.includes(`EECpromotion`)
-    )
+    const matches = splitHtml.filter((html) => html.includes('HeroStage')
+        && html.includes('slider/accordionTheme/slide')
+        && html.includes('EECpromotion'));
 
-    let allLinks = splitHtml
-        .filter(html => html.includes('@_href'))
+    const allLinks = splitHtml
+        .filter((html) => html.includes('@_href'))
         .join('')
         .split('"@_href":"')
         .join('')
-        .split('"')
+        .split('"');
 
-    const promotionLinks = []
+    const promotionLinks = [];
 
-    matches.forEach(match => {
-        let dataId = extractData(match, 'data-id').replace(/\s/g,'')
+    matches.forEach((match) => {
+        const dataId = extractData(match, 'data-id').replace(/\s/g, '');
 
-        const link = allLinks.find(x => x.includes(dataId))?.replace(',', '')
-        promotionLinks.push(link)
-    })
+        const link = allLinks.find((x) => x.includes(dataId))?.replace(',', '');
+        promotionLinks.push(link);
+    });
 
-    return promotionLinks
-}
+    return promotionLinks;
+};
 
 const getPagePromotions = (page = '', rawHtml = '') => {
-    const $ = cherio.load(rawHtml)
-    const allArticles = $('article', rawHtml).toArray()
+    const $ = cherio.load(rawHtml);
+    const allArticles = $('article', rawHtml).toArray();
 
-    const allProductArticles = allArticles.filter((article) => !article.attribs['EECproduct'])
+    const allProductArticles = allArticles.filter((article) => !article.attribs.EECproduct);
 
-    const finalProducts = []
+    const finalProducts = [];
 
     for (const product of allProductArticles) {
-        const price = product.attribs['data-price']
+        const price = product.attribs['data-price'];
 
         if (!price) {
-            continue
+            continue;
         }
 
+        const possibleAnchors = $('a', product).toArray();
+        const link = possibleAnchors.find((anchor) => anchor.attribs.href)?.attribs.href;
 
-        const possibleAnchors = $('a', product).toArray()
-        const link = possibleAnchors.find(anchor => anchor.attribs['href'])?.attribs['href']
-
-        const possibleImgSources = $('source', product).toArray()
+        const possibleImgSources = $('source', product).toArray();
 
         // Choose last source because it contians smaller image
 
-        let smallerImage
+        let smallerImage;
         if (possibleImgSources.length) {
-            smallerImage = possibleImgSources[possibleImgSources.length -1].attribs['srcset']
+            smallerImage = possibleImgSources[possibleImgSources.length - 1].attribs.srcset;
         }
 
-        let dateText = $('.lidl-m-ribbon-item__text', product).text()
+        const dateText = $('.lidl-m-ribbon-item__text', product).text();
 
         finalProducts.push({
             name: product.attribs['data-name'],
@@ -107,29 +107,26 @@ const getPagePromotions = (page = '', rawHtml = '') => {
             dateText,
             quantityInfo: $('.lidl-m-pricebox__basic-quantity', product).text(),
             merchant: 'lidl',
-        })
-
+        });
     }
-            
-    return finalProducts
-}
+
+    return finalProducts;
+};
 
 const extractData = (str = '', dataName = '') => {
-        let name = ''
-        
-        name = str.split(`"@_${dataName}":"`)[1]
+        let name = '';
+
+        name = str.split(`"@_${dataName}":"`)[1];
 
         if (!name) {
-            return ''
+            return '';
         }
-        
-        name = name.split('"')[0]
 
-        return name
-}
+        name = name.split('"')[0];
 
-console.log('READING LIDL ---')
+        return name;
+};
 
 if (!fs.existsSync('lidl.json') || true) {
-    extractLidlWebsite()
+    extractLidlWebsite();
 }
