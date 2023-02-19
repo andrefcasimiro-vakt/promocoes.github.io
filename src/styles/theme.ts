@@ -12,6 +12,7 @@ export const theme: DefaultTheme = {
         pingodoce: '#90c444',
     },
     fontSize: {
+        small: '12px',
         default: '16px',
     },
     spacing: {

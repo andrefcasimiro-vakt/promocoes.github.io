@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components';
 import { loadingAtom } from '../../containers/app';
 import { H3 } from '../../styles/font.styled';
 import { TextInput } from '../../styles/inputs.styled';
-import { RowContainerLarge } from '../../styles/layout.styled';
+import { RowContainer, RowContainerLarge } from '../../styles/layout.styled';
 import FiltersMenu from '../filters-menu/filters-menu';
 import SearchIcon from '../icons/search';
 import { ToolbarContainer } from './toolbar.styled';
@@ -21,23 +21,25 @@ export default function Toolbar() {
       <ToolbarContainer>
         <H3 style={{ color: theme.colors.light }}>Promoções</H3>
 
-        <RowContainerLarge style={{ position: 'relative' }}>
-          <TextInput
-            style={{ width: 400, paddingLeft: 40 }}
-            value={searchValue}
-            onChange={(event) => {
-                setLoading(true);
+        <RowContainer style={{ width: '100%' }}>
+          <RowContainerLarge style={{ position: 'relative' }}>
+            <TextInput
+              style={{ paddingLeft: 40 }}
+              value={searchValue}
+              onChange={(event) => {
+                  setLoading(true);
 
-                setSearchValue(event.target.value);
+                  setSearchValue(event.target.value);
 
-                window.scrollTo({ top: 0 })
-            }}
-            placeholder="Ex. Batata doce, Café Delta, Vinhos"
-          />
-          <SearchIcon style={{ position: 'absolute', fill: theme.colors.primary, left: 10 }} />
-        </RowContainerLarge>
+                  window.scrollTo({ top: 0 });
+              }}
+              placeholder="Ex. Batata doce, Café Delta, Vinhos"
+            />
+            <SearchIcon style={{ position: 'absolute', fill: theme.colors.primary, left: 10 }} />
+          </RowContainerLarge>
 
-        <FiltersMenu />
+          <FiltersMenu />
+        </RowContainer>
       </ToolbarContainer>
     );
 }

@@ -13,6 +13,7 @@ import {
  Space,
  WrapContainerExtraLarge,
 } from '../styles/layout.styled';
+import { sortProductsByPrice } from '../utils/utils';
 
 export const loadingAtom = atom<boolean>(true);
 
@@ -50,25 +51,23 @@ export default function App() {
       <ScrollTo />
       <Space style={{ marginTop: 40 }} />
       <WrapContainerExtraLarge style={{ padding: 0, width: '100%' }}>
-        {loading
-          ? <H2>A pesquisar...</H2>
-          : (
-            <div style={{
+        {!loading && (
+        <div style={{
  minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%',
 }}
-            >
-              <div style={{
+        >
+          <div style={{
  flexWrap: 'wrap', display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
 }}
-              >
-                {displayedItems.map((item, index) => (
-                  <ProductTile product={item} key={index.toString()} />
+          >
+            {displayedItems.map((item, index) => (
+              <ProductTile product={item} key={index.toString()} />
               ))}
-              </div>
-              <Space />
-              <Footer />
+          </div>
+          <Space />
+          <Footer />
 
-            </div>
+        </div>
         )}
 
       </WrapContainerExtraLarge>

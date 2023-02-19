@@ -6,5 +6,11 @@ export const TextInput = styled.input`
     font-size: ${(props) => props.theme.fontSize.default};
     padding: ${(props) => props.theme.spacing.small};
     display: flex;
+    min-width: 400px;
     width: 100%;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        min-width: unset;
+    }
 `;

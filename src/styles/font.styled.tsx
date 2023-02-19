@@ -5,6 +5,9 @@ const overrides = `
     margin-inline-end: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
+    @media only screen and (max-width: 600px) {
+        font-size: 80%;
+    }
 `;
 
 export const H1 = styled.h1`

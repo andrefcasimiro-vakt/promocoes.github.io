@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FooterContainer = styled.footer`
     display: flex;
     background: ${(props) => props.theme.colors.light};
-    height: 200px;
+    height: 180px;
     flex-direction: row;
 `;
 

@@ -15,6 +15,10 @@ export const PrimaryButton = styled.button`
 
     font-size: ${(props) => props.theme.fontSize.default};
     font-family: inherit;
+    
+    @media only screen and (max-width: 600px) {
+        font-size: ${(props) => props.theme.fontSize.small};
+    }
 `;
 
 export const SecondaryButton = styled(PrimaryButton)`

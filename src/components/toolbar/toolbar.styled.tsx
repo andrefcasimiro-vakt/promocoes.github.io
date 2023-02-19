@@ -11,4 +11,11 @@ export const ToolbarContainer = styled.nav`
     padding: ${(props) => props.theme.spacing.small};
     background: ${(props) => props.theme.colors.primary};
     justify-content: space-between;
+    align-items: center;
+
+    @media only screen and (max-width: 600px) {
+        min-width: unset;
+        height: unset;
+        flex-direction: column;
+    }
 `;

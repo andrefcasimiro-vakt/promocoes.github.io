@@ -13,6 +13,7 @@ declare module 'styled-components' {
             continente: string;
          },
          fontSize: {
+            small: string;
             default: string;
          },
          spacing: {
