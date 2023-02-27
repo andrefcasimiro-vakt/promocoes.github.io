@@ -1,41 +1,41 @@
-name: Fetch and prepare data for the day
+# name: Fetch and prepare data for the day
 
-on:  
-  #push:
-  #  branches:
-  #    - master
-  schedule:
-    - cron: '0 3 * * *'  # At 03:00 every day.
+# on:  
+#   #push:
+#   #  branches:
+#   #    - master
+#   schedule:
+#     - cron: '0 3 * * *'  # At 03:00 every day.
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
-jobs:
-  fetch-and-prepare-data-for-the-day:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🍽️ Checkout the repo
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 1
+# jobs:
+#   fetch-and-prepare-data-for-the-day:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 🍽️ Checkout the repo
+#         uses: actions/checkout@master
+#         with:
+#           fetch-depth: 1
 
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run downloadLidl
-      - run: npm run processLidl
-      - run: npm run downloadPingoDoce
-      - run: npm run processPingoDoce
-      - run: npm run downloadContinente
-      - run: git remote -v
-      - run: git config user.email "andre.fernandes@VAKT.io"
-      - run: git config user.name "andrefcasimiro-vakt"
-      - run: npm run predeploy
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build # The folder the action should deploy.
+#       - uses: actions/checkout@v3
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - run: npm ci
+#       - run: npm run downloadLidl
+#       - run: npm run processLidl
+#       - run: npm run downloadPingoDoce
+#       - run: npm run processPingoDoce
+#       - run: npm run downloadContinente
+#       - run: git remote -v
+#       - run: git config user.email "andre.fernandes@VAKT.io"
+#       - run: git config user.name "andrefcasimiro-vakt"
+#       - run: npm run predeploy
+#       - name: Deploy 🚀
+#         uses: JamesIves/github-pages-deploy-action@v4
+#         with:
+#           folder: build # The folder the action should deploy.
 

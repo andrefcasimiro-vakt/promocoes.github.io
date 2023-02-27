@@ -1,31 +1,31 @@
-name: Build UI
+# name: Build UI
 
-on:  
-  push:
-    branches:
-      - master
+# on:  
+#   push:
+#     branches:
+#       - master
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
-jobs:
-  fetch-and-prepare-data-for-the-day:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🍽️ Checkout the repo
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 1
+# jobs:
+#   fetch-and-prepare-data-for-the-day:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 🍽️ Checkout the repo
+#         uses: actions/checkout@master
+#         with:
+#           fetch-depth: 1
 
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run predeploy
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build # The folder the action should deploy.
+#       - uses: actions/checkout@v3
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - run: npm ci
+#       - run: npm run predeploy
+#       - name: Deploy 🚀
+#         uses: JamesIves/github-pages-deploy-action@v4
+#         with:
+#           folder: build # The folder the action should deploy.
 
